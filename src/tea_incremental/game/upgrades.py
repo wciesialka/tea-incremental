@@ -1,4 +1,7 @@
+'''All upgrades.'''
+
 from abc import ABC
+from typing import List
 
 class Upgrade(ABC):
 
@@ -12,6 +15,21 @@ class Upgrade(ABC):
     def activate(self):
         self.active = True
 
+    def __copy__(self):
+        copy = self.__class__(self.price, self.rate, self.name, self.description)
+        copy.active = self.active
+        return copy
+
+UPGRADES: List[Upgrade] = []
+
+def add_upgrade(cls):
+    '''Add upgrade to list of upgrades.'''
+
+    UPGRADES.append(cls())
+
+    return cls
+
+@add_upgrade
 class WateringCan(Upgrade):
 
     def __init__(self):

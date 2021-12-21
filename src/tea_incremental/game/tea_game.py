@@ -1,9 +1,9 @@
 import datetime
 from time import sleep, time
-import os
-
-from tea_incremental.game.producers import TeaTree
-from tea_incremental.game.upgrades import WateringCan
+from typing import List
+import tea_incremental.game.producers as producers
+import tea_incremental.game.upgrades as upgrades
+from copy import deepcopy
 
 class StopGame:
     pass
@@ -14,13 +14,13 @@ class TeaGame:
     GLOBAL_RATE: float = 1/FRAMES_PER_SECOND
 
     def __init__(self):
-        self.start = datetime.datetime.now()
-        self.end_time = None
-        self.running = True
-        self.leaves = 0
-        self.cash = 1
-        self.producers = [TeaTree()]
-        self.upgrades = [WateringCan()]
+        self.start: datetime.datetime = datetime.datetime.now()
+        self.end_time: datetime.datetime = None
+        self.running: bool = True
+        self.leaves: float = 0
+        self.cash: float = 1
+        self.producers: List[producers.Producer] = deepcopy(producers.PRODUCERS)
+        self.upgrades: List[upgrades.Upgrade] = deepcopy(upgrades.UPGRADES)
 
     def list_producers(self):
         for i,producer in enumerate(self.producers):
