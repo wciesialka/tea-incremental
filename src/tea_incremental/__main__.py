@@ -81,7 +81,8 @@ def main():
             screen.draw()
 
     except Exception as ex:
-        if isinstance(ex,StopGame):
+        if not isinstance(ex, StopGame):
+            raise ex
             logging.debug("Error: %s", ex)
             print("An error occured and we had to quit!")
     finally:
